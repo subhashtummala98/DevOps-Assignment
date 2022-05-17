@@ -29,7 +29,7 @@ pipeline {
 
 		stage('set label') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl label node --all "disk=ssd" --overwrite=true
 					'''
@@ -39,7 +39,7 @@ pipeline {
 
 		stage('deploy blue container') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f bluecontroller.yml
 					'''
@@ -49,7 +49,7 @@ pipeline {
 
 		stage('deploy green container') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f greencontroller.yml
 					'''
@@ -59,7 +59,7 @@ pipeline {
 
 		stage('install metrics server') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f metricserver.yaml
 					'''
@@ -69,7 +69,7 @@ pipeline {
 
 		stage('assign hpa blue') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f hpablue.yml
 					'''
@@ -79,7 +79,7 @@ pipeline {
 
 		stage('assign hpa green') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f hpagreen.yml
 					'''
@@ -89,7 +89,7 @@ pipeline {
 
 		stage('add pod disruption budget') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f pdbblue.yml
 					'''
@@ -99,7 +99,7 @@ pipeline {
 
 		stage('add pod disruption budget green') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f pdbgreen.yml
 					'''
@@ -109,7 +109,7 @@ pipeline {
 
 		stage('Create the service in the cluster, redirect to blue') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f blueservice.yml
 					'''
@@ -125,7 +125,7 @@ pipeline {
 
 		stage('Create the service in the cluster, redirect to green') {
 			steps {
-				withAWS(region:'us-east-1', credentials:'pagu18') {
+				withAWS(region:'us-east-1', credentials:'sutu18') {
 					sh '''
 						kubectl apply -f greenservice.yml
 					'''
